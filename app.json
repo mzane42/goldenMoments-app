@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Golden Moments",
+    "slug": "golden-moments",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "goldenmoments",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.goldenmoments.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to your camera to let you take profile pictures.",
+        "NSPhotoLibraryUsageDescription": "We need access to your photos to let you upload profile pictures.",
+        "NSLocationWhenInUseUsageDescription": "We need your location to show you nearby experiences.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "We need your location to show you nearby experiences.",
+        "NSLocationAlwaysUsageDescription": "We need your location to show you nearby experiences.",
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "owner": "goldenmoments"
+  }
+}
