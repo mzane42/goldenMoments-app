@@ -88,12 +88,12 @@ export default function PhoneSignupScreen() {
         />
 
     
-        {process.env.PLATFORM === 'expo' && (
+        {process.env.EXPO_PUBLIC_PLATFORM === 'expo' && (
           <Text style={styles.devNote}>
             Running in Expo environment
           </Text>
         )}
-        {process.env.PLATFORM === 'web' && (
+        {process.env.EXPO_PUBLIC_PLATFORM === 'web' && (
           <Text style={styles.devNote}>
             Running in Web environment
           </Text>

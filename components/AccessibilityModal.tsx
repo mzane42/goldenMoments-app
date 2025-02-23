@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ListingModal from './ListingModal';
 import { Accessibility } from '../types/experience';
@@ -12,13 +12,20 @@ type AccessibilityModalProps = {
 };
 
 const AccessibilityModal: React.FC<AccessibilityModalProps> = ({ accessibility, visible, onClose }) => {
+  const hasAccessibilityData = Object.keys(accessibility).length > 0;
+
   return (
     <ListingModal title="Services et accessibilité" visible={visible} onClose={onClose}>
       <ScrollView>
+        {
+          !hasAccessibilityData && (
+            <Text style={styles.accessibilityValue}>Aucune information disponible</Text>
+          )
+        }
         {Object.entries(accessibility).map(([key, value], index) => (
           <View key={key} style={styles.accessibilityItem}>
             <Text style={styles.accessibilityLabel}>{translateAccessibilityKeys(key)}</Text>
-            <Text style={styles.accessibilityValue}>{!!value ? 'Oui' : 'Non'}</Text>
+            <Text style={styles.accessibilityValue}>{value ? 'Oui' : 'Non'}</Text>
           </View>
         ))}
       </ScrollView>

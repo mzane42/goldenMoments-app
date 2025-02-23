@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, View, Text, StyleSheet, Pressable } from 'react-native';
++import { SafeAreaView } from 'react-native-safe-area-context';
 
 type ListingModalProps = {
   visible: boolean;
@@ -18,7 +19,7 @@ const ListingModal: React.FC<ListingModalProps> = ({ title, visible, onClose, ch
       animationType="slide"
       presentationStyle="pageSheet"
     >
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{title}</Text>
           <Pressable onPress={onClose} style={styles.closeButton}>
@@ -29,7 +30,7 @@ const ListingModal: React.FC<ListingModalProps> = ({ title, visible, onClose, ch
         <View style={styles.content}>
           {children}
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 };

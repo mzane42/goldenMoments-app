@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "EXPO_NO_TELEMETRY=1 expo start --tunnel",
     "dev:web": "EXPO_NO_TELEMETRY=1 expo start --web",
-    "build:web": "expo export --platform we",
+    "build:web": "expo export --platform web",
     "lint": "expo lint",
     "start": "expo start",
     "android": "expo start --android",

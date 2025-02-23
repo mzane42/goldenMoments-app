@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ListingModal from './ListingModal';
 import { Schedules } from '../types/experience';
@@ -10,10 +10,16 @@ type SchedulesProps = {
 };
 
 const SchedulesModal: React.FC<SchedulesProps> = ({ schedules, visible, onClose }) => {
+  const hasSchedulesData = Object.keys(schedules).length > 0;
 
   return (
     <ListingModal title="Horaires" visible={visible} onClose={onClose}>
       <ScrollView>
+        {
+          !hasSchedulesData && (
+            <Text style={styles.scheduleValue}>Aucune information disponible</Text>
+          )
+        }
         {Object.entries(schedules).map(([key, value], index) => (
         <View key={key} style={styles.scheduleItem}>
           <Text style={styles.scheduleLabel}>{translateScheduleKeys(key)}</Text>
@@ -29,6 +35,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  scheduleValue: {
+    fontSize: 16,
+    color: '#000',
     marginBottom: 16,
   },
   scheduleItem: {

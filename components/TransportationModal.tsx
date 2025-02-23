@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ListingModal from './ListingModal';
 import { Transportation } from '../types/experience';
@@ -10,10 +10,16 @@ type TransportationProps = {
 };
 
 const TransportationModal: React.FC<TransportationProps> = ({ transportation, visible, onClose }) => {
+  const hasTransportationData = Object.keys(transportation).length > 0;
 
   return (
     <ListingModal title="Comment s'y rendre ?" visible={visible} onClose={onClose}>
       <ScrollView>
+        {
+          !hasTransportationData && (
+            <Text style={styles.transportationValue}>Aucune information disponible</Text>
+          )
+        }
         {Object.entries(transportation).map(([key, value], index) => (
         <View key={key} style={styles.scheduleItem}>
           <Text style={styles.scheduleLabel}>{translateTransportationKeys(key)}</Text>
@@ -45,6 +51,11 @@ const styles = StyleSheet.create({
   scheduleTime: {
     fontSize: 16,
     color: '#000',
+  },
+  transportationValue: {
+    fontSize: 16,
+    color: '#000',
+    marginBottom: 16,
   },
 });
 
