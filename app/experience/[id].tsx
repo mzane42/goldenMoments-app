@@ -12,7 +12,7 @@ import Animated, {
   useSharedValue,
   withSequence
 } from 'react-native-reanimated';
-import Markdown from 'react-native-markdown-display';
+import Markdown from 'react-native-marked';
 import SchedulesModal from '@/components/SchedulesModal';
 import TransportationModal from '@/components/TransportationModal';
 import AccessibilityModal from '@/components/AccessibilityModal';
