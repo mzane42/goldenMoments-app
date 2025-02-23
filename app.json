@@ -43,6 +43,14 @@
     "experiments": {
       "typedRoutes": true
     },
-    "owner": "goldenmoments"
+    "owner": "mzane42",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "dad16769-fa02-4235-b091-39ac4ef6904d"
+      }
+    }
   }
 }
