@@ -65,7 +65,7 @@ export default function ExperienceScreen() {
 
 
   useEffect(() => {
-    // load experience detail
+    // load experience details
     loadExperience();
   }, [id]);
 
