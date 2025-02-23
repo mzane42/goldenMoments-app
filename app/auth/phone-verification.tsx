@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
+import { checkIfUserExists } from '@/lib/api';
 
 export default function PhoneVerificationScreen() {
   const { phone } = useLocalSearchParams();
@@ -22,11 +31,22 @@ export default function PhoneVerificationScreen() {
 
     try {
       // In development, we'll verify against the mock OTP
-      const storedOtp = await SecureStore.getItemAsync('mockOtp');
-      
+      let storedOtp = null;
+      if (process.env.EXPO_PUBLIC_PLATFORM === 'expo') {
+        storedOtp = await SecureStore.getItemAsync('mockOtp');
+      } else if (process.env.EXPO_PUBLIC_PLATFORM === 'web') {
+        storedOtp = localStorage.getItem('mockOtp');
+      }
+
       if (code === storedOtp) {
-        // Verification successful
-        router.push('/auth/complete-profile');
+        // Check if the user already exists
+        const userExists = await checkIfUserExists();
+
+        if (userExists) {
+          router.push('/(tabs)');
+        } else {
+          router.push('/auth/complete-profile');
+        }
       } else {
         setError('Code de vérification incorrect');
       }
@@ -73,9 +93,7 @@ export default function PhoneVerificationScreen() {
         )}
 
         <Pressable style={styles.resendButton}>
-          <Text style={styles.resendButtonText}>
-            Je n'ai pas reçu le code
-          </Text>
+          <Text style={styles.resendButtonText}>Je n'ai pas reçu le code</Text>
         </Pressable>
       </View>
 
@@ -83,7 +101,7 @@ export default function PhoneVerificationScreen() {
         <Pressable
           style={[
             styles.continueButton,
-            (isLoading || !code) && styles.continueButtonDisabled
+            (isLoading || !code) && styles.continueButtonDisabled,
           ]}
           onPress={handleVerification}
           disabled={isLoading || !code}

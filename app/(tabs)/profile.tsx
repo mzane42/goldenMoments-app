@@ -111,7 +111,7 @@ export default function ProfileScreen() {
         >
           <Ionicons name="calendar-outline" size={24} color="#000" />
           <View style={styles.menuItemContent}>
-            <Text style={styles.menuItemTitle}>Mes staycations</Text>
+            <Text style={styles.menuItemTitle}>Mes Reservations</Text>
           </View>
           <Ionicons name="chevron-forward" size={24} color="#000" />
         </Pressable>

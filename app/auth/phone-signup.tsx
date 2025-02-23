@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import PhoneInput from '../../components/PhoneInput';
 import * as SecureStore from 'expo-secure-store';
-
 // For development, we'll use a mock OTP
 const MOCK_OTP = '123456';
 
@@ -13,6 +12,11 @@ export default function PhoneSignupScreen() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  const sendOtp = async (phoneNumber: string) => {
+    // TODO: Implement the OTP sending logic
+    console.log('Sending OTP to', phoneNumber);
+  };
 
   const handleSignup = async () => {
     if (!phoneNumber) {
@@ -32,11 +36,20 @@ export default function PhoneSignupScreen() {
 
     try {
       // In development, we'll simulate the OTP send
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Store the mock OTP in SecureStore
-      await SecureStore.setItemAsync('mockOtp', MOCK_OTP);
-      await SecureStore.setItemAsync('phoneNumber', cleanedNumber);
+      if (process.env.NODE_ENV === 'development') {
+        // Store the mock OTP in SecureStore
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (process.env.EXPO_PUBLIC_PLATFORM === 'expo') {
+          await SecureStore.setItemAsync('mockOtp', MOCK_OTP);
+          await SecureStore.setItemAsync('phoneNumber', cleanedNumber);
+        } else if (process.env.EXPO_PUBLIC_PLATFORM === 'web') {
+          localStorage.setItem('mockOtp', MOCK_OTP);
+          localStorage.setItem('phoneNumber', cleanedNumber);
+        }
+      } else {
+        // In production, we'll send the OTP to the phone number
+        await sendOtp(cleanedNumber);
+      }
 
       // Redirect to verification page
       router.push({
@@ -74,9 +87,15 @@ export default function PhoneSignupScreen() {
           error={error}
         />
 
-        {process.env.NODE_ENV === 'development' && (
+    
+        {process.env.PLATFORM === 'expo' && (
           <Text style={styles.devNote}>
-            Code de développement : {MOCK_OTP}
+            Running in Expo environment
+          </Text>
+        )}
+        {process.env.PLATFORM === 'web' && (
+          <Text style={styles.devNote}>
+            Running in Web environment
           </Text>
         )}
       </View>
