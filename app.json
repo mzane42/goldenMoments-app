@@ -21,8 +21,12 @@
         "UIBackgroundModes": [
           "location",
           "fetch"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
+    },
+    "android": {
+      "package": "com.goldenmoments.app"
     },
     "web": {
       "bundler": "metro",
@@ -53,5 +57,8 @@
         "slug": "project1"
       }
     }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
