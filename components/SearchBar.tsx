@@ -11,7 +11,7 @@ type SearchBarProps = {
   city?: string;
 };
 
-export default function SearchBar({ onSearch, city = 'Paris' }: SearchBarProps) {
+export default function SearchBar({ onSearch, city = 'Alger' }: SearchBarProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [showDates, setShowDates] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,7 +36,7 @@ export default function SearchBar({ onSearch, city = 'Paris' }: SearchBarProps) 
           <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
-            placeholder={`Chercher dans ${city}`}
+            placeholder={`Rechercher une ville ou un hotel`}
             placeholderTextColor="#999"
             value={searchQuery}
             onChangeText={handleSearch}

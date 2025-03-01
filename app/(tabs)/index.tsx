@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import ExperienceCard from '../../components/ExperienceCard';
@@ -73,6 +74,7 @@ export default function HomeTab() {
   }
 
   return (
+    <SafeAreaView>
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <SearchBar />
       
@@ -124,6 +126,8 @@ export default function HomeTab() {
         </View>
       ))}
     </ScrollView>
+    </SafeAreaView>
+
   );
 }
 

@@ -31,6 +31,10 @@ export default function WelcomeScreen() {
     router.push('/auth/phone-signup');
   };
 
+  const handleEmailSignup = () => {
+    router.push('/auth/email-signup');
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -68,6 +72,15 @@ export default function WelcomeScreen() {
               >
                 <Text style={styles.phoneButtonText}>
                   Continuer avec le téléphone
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={styles.emailButton}
+                onPress={handleEmailSignup}
+              >
+                <Text style={styles.emailButtonText}>
+                  Continuer avec l'email
                 </Text>
               </Pressable>
 
@@ -135,6 +148,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
+  emailButton: {
+    width: '100%',
+    height: 48,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 12,
+    marginBottom: 24,
+  },
+  emailButtonText: {
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  
   termsText: {
     color: '#FFFFFF',
     fontSize: 12,

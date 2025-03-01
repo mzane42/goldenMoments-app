@@ -12,6 +12,10 @@ import Animated, {
   useSharedValue,
   withSequence
 } from 'react-native-reanimated';
+import Markdown from 'react-native-marked';
+import SchedulesModal from '@/components/SchedulesModal';
+import TransportationModal from '@/components/TransportationModal';
+import AccessibilityModal from '@/components/AccessibilityModal';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -55,10 +59,13 @@ export default function ExperienceScreen() {
   const [selectedExtras, setSelectedExtras] = useState<Set<string>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [modal, setModal] = useState<string | null>(null);
   const { width } = useWindowDimensions();
   const scale = useSharedValue(1);
 
+
   useEffect(() => {
+    // load experience details 
     loadExperience();
   }, [id]);
 
@@ -229,7 +236,7 @@ export default function ExperienceScreen() {
           </View>
 
           <Text style={styles.description}>
-            {experience.long_description}
+            <Markdown>{experience.long_description}</Markdown>
           </Text>
 
           {/* Included Services */}
@@ -285,7 +292,7 @@ export default function ExperienceScreen() {
           {/* Reviews */}
           <View style={styles.reviewsContainer}>
             <View style={styles.reviewsHeader}>
-              <Text style={styles.reviewsTitle}>Street cred</Text>
+              <Text style={styles.reviewsTitle}>Retour d'expérience</Text>
               <View style={styles.reviewsSummary}>
                 <Text style={styles.reviewsScore}>{experience.rating}</Text>
                 <Text style={styles.reviewsCount}>{experience.reviewCount} avis</Text>
@@ -298,8 +305,8 @@ export default function ExperienceScreen() {
             <View style={styles.reviewCard}>
               <View style={styles.reviewHeader}>
                 <View style={styles.reviewerInfo}>
-                  <Text style={styles.reviewerName}>Corentin</Text>
-                  <Text style={styles.reviewDate}>Staycation du 15/02/25</Text>
+                  <Text style={styles.reviewerName}>Samy</Text>
+                  <Text style={styles.reviewDate}>Reservation du 15/02/25</Text>
                 </View>
                 <View style={styles.reviewRating}>
                   <Ionicons name="star" size={16} color="#000" />
@@ -315,31 +322,37 @@ export default function ExperienceScreen() {
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Check in</Text>
-              <Text style={styles.infoValue}>À partir de 15h</Text>
+              
+              <Text style={styles.infoValue}>À partir de {experience.check_in_info.check_in}</Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Check out</Text>
-              <Text style={styles.infoValue}>Jusqu'à 12h</Text>
+              <Text style={styles.infoValue}>Jusqu'à {experience.check_in_info.check_out}</Text>
             </View>
           </View>
 
-          <Pressable style={styles.infoButton}>
+          <Pressable onPress={() => setModal('schedules')} style={styles.infoButton}>
             <Ionicons name="time-outline" size={24} color="#000" />
             <Text style={styles.infoButtonText}>Horaires</Text>
             <Ionicons name="chevron-forward" size={24} color="#000" />
           </Pressable>
 
-          <Pressable style={styles.infoButton}>
+          <Pressable onPress={() => setModal('transportation')} style={styles.infoButton}>
             <Ionicons name="map-outline" size={24} color="#000" />
             <Text style={styles.infoButtonText}>Comment s'y rendre ?</Text>
             <Ionicons name="chevron-forward" size={24} color="#000" />
           </Pressable>
 
-          <Pressable style={styles.infoButton}>
+          <Pressable onPress={() => setModal('accessibility')} style={styles.infoButton}>
             <Ionicons name="accessibility-outline" size={24} color="#000" />
             <Text style={styles.infoButtonText}>Services et accessibilité</Text>
             <Ionicons name="chevron-forward" size={24} color="#000" />
           </Pressable>
+
+          {/* Modals */}
+          <SchedulesModal schedules={experience.schedules} visible={modal === 'schedules'} onClose={() => setModal(null)} />
+          <TransportationModal transportation={experience.transportation} visible={modal === 'transportation'} onClose={() => setModal(null)} />
+          <AccessibilityModal accessibility={experience.accessibility} visible={modal === 'accessibility'} onClose={() => setModal(null)} />
         </View>
       </ScrollView>
 

@@ -24,6 +24,30 @@ export type SearchFilters = {
   roomType?: string;
 };
 
+export async function checkIfUserExists() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    return false;
+  }
+
+  const { data: userData, error: userError } = await supabase
+    .from('users')
+    .select('id')
+    .eq('auth_id', user.id)
+    .maybeSingle();
+    if (userError) {
+      console.error('Error checking if user exists:', userError);
+      return false;
+    }
+    return !!userData;
+  } catch (error) {
+    console.error('Error checking if user exists:', error);
+    return false;
+  }
+}
+
 export async function getExperiences() {
   const { data, error } = await supabase
     .from('experiences')

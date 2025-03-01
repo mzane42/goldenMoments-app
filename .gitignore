@@ -7,6 +7,12 @@ dist/
 web-build/
 expo-env.d.ts
 
+.cursor
+
+.env
+
+.history
+
 # native
 *.orig.*
 *.jks

@@ -1,6 +1,7 @@
 {
   "cli": {
     "version": ">= 7.3.0",
+    "appVersionSource": "remote",
     "promptToConfigurePushNotifications": false
   },
   "build": {
@@ -8,18 +9,27 @@
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "medium"
+      },
+      "android": {
+        "resourceClass": "medium"
       }
     },
     "preview": {
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "medium"
+      },
+      "android": {
+        "resourceClass": "medium"
       }
     },
     "production": {
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "medium"
+      },
+      "android": {
+        "resourceClass": "medium"
       }
     }
   },

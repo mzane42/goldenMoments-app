@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Golden Moments",
-    "slug": "golden-moments",
+    "slug": "project1",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,8 +21,12 @@
         "UIBackgroundModes": [
           "location",
           "fetch"
-        ]
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
+    },
+    "android": {
+      "package": "com.goldenmoments.app"
     },
     "web": {
       "bundler": "metro",
@@ -43,6 +47,18 @@
     "experiments": {
       "typedRoutes": true
     },
-    "owner": "goldenmoments"
+    "owner": "mzane42",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3a166526-fc95-4e67-bd7d-e0544da1b63c",
+        "slug": "project1"
+      }
+    }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }
